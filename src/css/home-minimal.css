@@ -1,0 +1,431 @@
+/* Approved minimal homepage. Scoped here so the rest of the site keeps its own layout. */
+
+/* Selected Work shares the homepage column and type without the index grid. */
+body:has(main.page-selected-work) main.page-selected-work {
+  padding-bottom: 4.5rem;
+}
+
+.page-selected-work .minimal-clean-intro {
+  margin-bottom: 2.25rem;
+}
+
+.page-selected-work .minimal-clean-intro h1 + p {
+  margin-top: 0.75rem;
+}
+
+.page-selected-work .minimal-clean-preview section + section {
+  margin-top: 2.5rem;
+}
+
+.page-selected-work .minimal-clean-preview h2 {
+  margin-bottom: 0.75rem;
+}
+
+body:has(main.page-selected-work) .site-page-ornaments {
+  display: none;
+}
+
+/* Local consulting draft: retain the homepage type, with document-specific spacing. */
+body:has(main.page-consulting-preview) main.page-consulting-preview {
+  padding-bottom: 4.5rem;
+}
+
+.page-consulting-preview .minimal-clean-intro {
+  margin-bottom: 2.25rem;
+}
+
+.page-consulting-preview .minimal-clean-list {
+  margin-block: 1rem 1.75rem;
+}
+
+.page-consulting-preview .minimal-clean-preview .consulting-contact {
+  margin-top: 2rem;
+}
+
+body:has(main.page-consulting-preview) .site-page-ornaments {
+  display: none;
+}
+
+body:has(.page-minimal-home) {
+  --minimal-column: 650px;
+  --minimal-edge: clamp(1.35rem, 10vw, 10rem);
+  --minimal-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --minimal-link: #1d67c1;
+  --goodneighbor: #2d6a3f;
+  font-family: var(--minimal-sans);
+  font-feature-settings: normal;
+}
+
+[data-theme="dark"] body:has(.page-minimal-home) {
+  --minimal-link: #82b7f4;
+  --goodneighbor: #8fbd78;
+}
+
+body:has(.page-minimal-home) .site-nav {
+  position: sticky;
+  top: 0;
+  min-height: 3.75rem;
+  padding: 1rem clamp(1.35rem, 3vw, 2.5rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  font-family: var(--minimal-sans);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+body:has(.page-minimal-home) .nav-name,
+body:has(.page-minimal-home) .nav-name-sub,
+body:has(.page-minimal-home) .nav-links a,
+body:has(.page-minimal-home) .nav-control-cluster,
+body:has(.page-minimal-home) .dimmer {
+  font-family: var(--minimal-sans);
+  letter-spacing: 0;
+}
+
+body:has(.page-minimal-home) .nav-name {
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+body:has(.page-minimal-home) .nav-name-sub {
+  color: var(--goodneighbor);
+  font-size: 0.68rem;
+  font-weight: 550;
+}
+
+body:has(.page-minimal-home) .nav-links {
+  gap: 1rem;
+}
+
+body:has(.page-minimal-home) .nav-links a,
+body:has(.page-minimal-home) .nav-links a.semi-live {
+  color: color-mix(in srgb, var(--ink) 85%, var(--bg));
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+body:has(.page-minimal-home) .nav-links a.semi-live {
+  color: color-mix(in srgb, var(--ink) 72%, var(--bg));
+}
+
+body:has(.page-minimal-home) .nav-links a:hover,
+body:has(.page-minimal-home) .nav-links a.active {
+  color: var(--ink);
+}
+
+body:has(.page-minimal-home) .nav-links > *::after {
+  content: none;
+}
+
+body:has(.page-minimal-home) .page-minimal-home {
+  box-sizing: border-box;
+  width: min(var(--minimal-column), calc(100% - (2 * var(--minimal-edge))));
+  max-width: none;
+  margin: 0 0 0 var(--minimal-edge);
+  padding: clamp(2.2rem, 6vh, 4.5rem) 0 clamp(5rem, 10vh, 8rem);
+  font-family: var(--minimal-sans);
+  font-size: 1.025rem;
+  line-height: 1.62;
+}
+
+.minimal-clean-preview {
+  margin: 0;
+}
+
+.minimal-clean-intro {
+  margin-bottom: clamp(4rem, 10vh, 7rem);
+}
+
+.minimal-clean-preview h1 {
+  margin: 0;
+  font-family: var(--minimal-sans);
+  font-size: clamp(2rem, 4vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+}
+
+.minimal-clean-preview section + section {
+  margin-top: clamp(3.6rem, 8vh, 5.5rem);
+}
+
+.minimal-clean-preview h2 {
+  margin: 0 0 1.45rem;
+  font-family: var(--minimal-sans);
+  font-size: 1.28rem;
+  font-weight: 675;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.minimal-clean-preview p {
+  max-width: 62ch;
+  margin: 0;
+}
+
+.minimal-clean-preview p + p {
+  margin-top: 0.95rem;
+}
+
+.minimal-clean-preview .goodneighbor-mark {
+  color: var(--goodneighbor);
+  font-weight: 650;
+}
+
+.minimal-clean-more {
+  margin-top: 1.65rem !important;
+  font-size: 0.94rem;
+}
+
+.minimal-clean-list {
+  display: grid;
+  gap: 0.82rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.minimal-clean-list li {
+  position: relative;
+  padding-left: 1.55rem;
+}
+
+.minimal-clean-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.minimal-clean-work {
+  gap: 1.15rem;
+}
+
+.minimal-clean-work strong,
+.minimal-clean-work span {
+  display: block;
+}
+
+.minimal-clean-work strong {
+  font-weight: 650;
+}
+
+.minimal-clean-work span {
+  max-width: 57ch;
+  margin-top: 0.12rem;
+  color: var(--ink-faint);
+  font-size: 0.965rem;
+  line-height: 1.48;
+}
+
+.minimal-clean-places {
+  gap: 1rem;
+}
+
+.minimal-clean-places strong,
+.minimal-clean-places span {
+  display: block;
+}
+
+.minimal-clean-places strong {
+  font-weight: 650;
+}
+
+.minimal-clean-places span {
+  margin-top: 0.08rem;
+  color: var(--ink-faint);
+  font-size: 0.965rem;
+  line-height: 1.45;
+}
+
+.minimal-clean-preview a {
+  color: var(--minimal-link);
+  text-decoration: none;
+}
+
+.minimal-clean-preview a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments {
+  display: block;
+  pointer-events: none;
+}
+
+body:has(.page-minimal-home) .site-dust-motif,
+body:has(.page-minimal-home) .site-sawyer-motif {
+  display: none;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note {
+  display: grid;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-original {
+  display: block;
+  visibility: visible;
+  pointer-events: none;
+  opacity: 0;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-sawyer-original,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-sawyer-original {
+  opacity: 1;
+}
+
+/* Roubo remains separate from the reading column and appears only when it fits. */
+@media (min-width: 1050px) {
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-motif {
+    display: block;
+    visibility: visible;
+    pointer-events: none;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    width: min(
+      34rem,
+      38vw,
+      calc(100vw - var(--minimal-edge) - var(--minimal-column) - 2.5rem)
+    );
+    transform: none;
+    opacity: 0.24;
+  }
+
+  [data-theme="dark"] body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-motif {
+    opacity: 0.18;
+  }
+
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-sawyer-motif,
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-sawyer-motif {
+    opacity: 0.04;
+  }
+}
+
+body:has(.page-minimal-home) .site-art-note-link,
+body:has(.page-minimal-home) .site-art-reveal-kicker,
+body:has(.page-minimal-home) .site-art-reveal-title,
+body:has(.page-minimal-home) .site-art-reveal-meta {
+  font-family: var(--minimal-sans);
+}
+
+body:has(.page-minimal-home) .site-colophon {
+  box-sizing: border-box;
+  position: static;
+  left: auto;
+  bottom: auto;
+  max-width: var(--minimal-column);
+  margin: 0 0 0 var(--minimal-edge);
+  padding: 1.2rem 0 2rem;
+  gap: 0.45rem 0.9rem;
+  border-top: 1px solid var(--rule-light);
+  font-family: var(--minimal-sans);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 760px) {
+  body:has(.page-minimal-home) {
+    --minimal-edge: 1.35rem;
+  }
+
+  body:has(.page-minimal-home) .site-nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    min-height: 5.4rem;
+    padding: 0.7rem 1rem;
+  }
+
+  body:has(.page-minimal-home) .nav-name {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body:has(.page-minimal-home) .nav-right {
+    display: contents;
+  }
+
+  body:has(.page-minimal-home) .nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    gap: 0.72rem;
+  }
+
+  body:has(.page-minimal-home) .nav-control-cluster {
+    display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  body:has(.page-minimal-home) .dimmer {
+    display: inline-flex;
+  }
+
+  body:has(.page-minimal-home) .nav-links a,
+  body:has(.page-minimal-home) .nav-links a.semi-live {
+    font-size: 0.7rem;
+  }
+
+  body:has(.page-minimal-home) .page-minimal-home {
+    width: auto;
+    margin-inline: var(--minimal-edge);
+    padding-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.58;
+  }
+
+  .minimal-clean-intro {
+    margin-bottom: 4.5rem;
+  }
+
+  .minimal-clean-preview section + section {
+    margin-top: 3.8rem;
+  }
+
+  .minimal-clean-preview h2 {
+    margin-bottom: 1.2rem;
+  }
+
+  body:has(.page-minimal-home) .site-colophon {
+    margin-inline: var(--minimal-edge);
+    padding-bottom: 1.25rem;
+  }
+
+  body:has(.page-minimal-home) .site-art-note {
+    position: static;
+    width: auto;
+    margin: -0.25rem var(--minimal-edge) 1rem;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-title {
+    display: none;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-link {
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-mark {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    background: var(--bg);
+    font-size: 0.78rem;
+  }
+}

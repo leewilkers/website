@@ -1,0 +1,11 @@
+node_modules/
+_site/
+_public/
+.cache/
+.DS_Store
+.env
+*.log
+
+# These public book files match the machine-wide secret-name ignore.
+!src/content/items/benjamin-lorr-the-secret-life-of-groceries.md
+!src/img/covers/benjamin-lorr-the-secret-life-of-groceries.jpg

@@ -1,0 +1,302 @@
+---
+layout: base.njk
+title: Stacks – Lee Wilkers
+permalink: /shelf/
+pageClass: page-shelf
+---
+
+{% set typeSymbols = {
+  "archive": { label: "Archive", symbol: "archive" },
+  "audio": { label: "Audio", symbol: "wave-sine" },
+  "book": { label: "Book", symbol: "book" },
+  "case study": { label: "Case study", symbol: "file-text" },
+  "chapter": { label: "Chapter", symbol: "book" },
+  "concept": { label: "Concept", symbol: "bulb" },
+  "dataset": { label: "Dataset", symbol: "database" },
+  "essay": { label: "Essay", symbol: "article" },
+  "film": { label: "Film", symbol: "movie" },
+  "game": { label: "Game", symbol: "hand-finger" },
+  "image": { label: "Image", symbol: "photo" },
+  "installation": { label: "Installation", symbol: "cube" },
+  "interview": { label: "Interview", symbol: "messages" },
+  "journal article": { label: "Journal article", symbol: "microscope" },
+  "lecture": { label: "Lecture", symbol: "podium" },
+  "magazine": { label: "Magazine", symbol: "article" },
+  "map": { label: "Map", symbol: "map-2" },
+  "note": { label: "Note", symbol: "notes" },
+  "paper": { label: "Paper", symbol: "microscope" },
+  "photo": { label: "Photo", symbol: "photo" },
+  "project": { label: "Project", symbol: "cube" },
+  "report": { label: "Report", symbol: "file-text" },
+  "site": { label: "Website", symbol: "browser" },
+  "slides": { label: "Slides", symbol: "presentation" },
+  "software": { label: "Software", symbol: "terminal-2" },
+  "talk": { label: "Talk", symbol: "podium" },
+  "tool": { label: "Tool", symbol: "terminal-2" },
+  "video": { label: "Video", symbol: "video" },
+  "vr": { label: "VR", symbol: "hand-finger" },
+  "working paper": { label: "Working paper", symbol: "microscope" },
+  "unknown": { label: "Item type", symbol: "notes" }
+} %}
+
+{% macro typeSymbol(item, className) %}
+  {%- set rawType = item.data.type or "unknown" -%}
+  {%- set key = rawType | lower -%}
+  {%- set isInteractive = item.data.interactive or key == "vr" or key == "game" -%}
+  {%- if typeSymbols[key] -%}
+    {%- set label = typeSymbols[key].label -%}
+    {%- set symbol = item.data.type_symbol or typeSymbols[key].symbol -%}
+  {%- else -%}
+    {%- set label = rawType -%}
+    {%- set symbol = item.data.type_symbol or typeSymbols.unknown.symbol -%}
+  {%- endif -%}
+  {%- if isInteractive -%}
+    {%- set symbol = item.data.type_symbol or "hand-finger" -%}
+    {%- if label == "VR" -%}
+      {%- set label = "Interactive VR" -%}
+    {%- else -%}
+      {%- set label = "Interactive " ~ (label | lower) -%}
+    {%- endif -%}
+  {%- endif -%}
+        <span class="{{ className }} item-type-symbol" data-type="{{ rawType | escape }}" data-symbol="{{ symbol | escape }}" role="img" aria-label="{{ label | escape }}" title="{{ label | escape }}">
+          <svg class="item-type-symbol__icon" aria-hidden="true" focusable="false">
+            <use href="#item-type-{{ symbol }}"></use>
+          </svg>
+        </span>
+{% endmacro %}
+
+{% macro cell(item, topic) %}
+      {%- set primaryUrl = item.data.url %}
+      {%- set hoverVoice = item.data | shelfHoverVoice %}
+      {%- set identityYear = item.data | shelfIdentityYear %}
+      {%- set showCoverLabel = item.data.cover_label or item.data.cover_label_text %}
+      {%- set typeKey = (item.data.type or "unknown") | lower %}
+      {%- set quietCoverTypes = ["book", "chapter", "essay", "paper", "journal article", "report", "working paper"] %}
+      {%- set showCoverTypeMark = item.data.interactive or typeKey not in quietCoverTypes %}
+      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}" data-shelf-slug="{{ item.fileSlug }}">
+        <span class="cell-cover">
+          <span class="cell-cover-panel">
+          {%- if item.data.image %}
+            {% shelfCover item.data.image, "" %}
+          {%- endif %}
+          </span>
+          {%- if showCoverTypeMark %}
+          <span class="cell-cover-type-mark" aria-hidden="true">{{ typeSymbol(item, "cell-cover-type") }}</span>
+          {%- endif %}
+          {%- if showCoverLabel %}
+          <span class="cell-cover-stamp" aria-hidden="true">
+            <span class="cell-cover-stamp-title">{{ item.data.title }}</span>
+            {%- if item.data.author or identityYear %}
+            <span class="cell-cover-stamp-meta">
+              {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
+              {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+            </span>
+            {%- endif %}
+          </span>
+          {%- endif %}
+          <button type="button" class="cell-cover-primary" aria-label="Details for {{ item.data.title | escape }}"></button>
+          <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
+          <span class="cell-cover-overlay">
+            <span class="cell-cover-identity" aria-hidden="true">
+              <span class="cell-cover-title-row">
+                {%- if showCoverTypeMark %}{{ typeSymbol(item, "cell-cover-identity-type") }}{% endif -%}
+                <span class="cell-cover-title">{{ item.data.title }}</span>
+              </span>
+              {%- if item.data.author or identityYear %}
+              <span class="cell-cover-meta">
+                {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
+                {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+              </span>
+              {%- endif %}
+            </span>
+            {%- if hoverVoice %}
+            <span class="cell-hover-note cell-hover-note--{{ hoverVoice.kind }}" aria-hidden="true">{{ hoverVoice.text }}</span>
+            {%- endif %}
+            <ul class="cell-links" aria-label="Links">
+            {%- if item.data.url %}
+              <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.url | linkLabel(item.data.source_label) }}</a></li>
+            {%- endif %}
+            {%- if item.data.links %}{%- for link in item.data.links %}
+              <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.url | linkLabel(link.label) }}</a></li>
+            {%- endfor %}{%- endif %}
+            </ul>
+          </span>
+        </span>
+        <span class="cell-heading">
+        {{ typeSymbol(item, "cell-type") }}
+        {%- if item.data.title %}
+          {%- set tip = item.data.tooltip %}
+          {%- if primaryUrl %}
+        <a class="cell-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
+          {%- else %}
+        <span class="cell-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
+          {%- endif %}
+        {%- endif %}
+        </span>
+        <span class="cell-author">{{ item.data.author }}</span>
+        {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
+      </li>
+{% endmacro %}
+
+{% macro listRow(item) %}
+      {%- set primaryUrl = item.data.url %}
+      {%- set identityYear = item.data | shelfIdentityYear %}
+      <li class="shelf-list-row" data-shelf-slug="{{ item.fileSlug }}">
+        <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
+        <span class="shelf-list-main">
+          {{ typeSymbol(item, "shelf-list-type") }}
+          {%- if item.data.title %}
+          {%- set tip = item.data.tooltip %}
+          <button type="button" class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %} aria-label="Details for {{ item.data.title | escape }}">{{ item.data.title }}</button>
+          {%- endif %}
+          {%- if item.data.author or identityYear %}
+          <span class="shelf-list-author">
+            {%- if item.data.author %}{{ item.data.author }}{% endif -%}
+            {%- if item.data.author and identityYear %}, {% endif -%}
+            {%- if identityYear %}{{ identityYear }}{% endif -%}
+          </span>
+          {%- endif %}
+          {%- if item.data.dek %}
+          <span class="shelf-list-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </span>
+        <ul class="shelf-list-links" aria-label="Links">
+            {%- if item.data.url %}
+            <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.url | linkLabel(item.data.source_label) }}</a></li>
+            {%- endif %}
+            {%- if item.data.links %}{%- for link in item.data.links %}
+            <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.url | linkLabel(link.label) }}</a></li>
+            {%- endfor %}{%- endif %}
+        </ul>
+      </li>
+{% endmacro %}
+
+<button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()"><span aria-hidden="true">☰</span><span class="sidebar-toggle-label">topics</span></button>
+
+{% include "type-symbols.njk" %}
+
+{%- set shelfTopics = topics | nonEmptyShelfTopics(collections.items) %}
+
+<header class="shelf-console-head" id="main">
+  <div class="shelf-console-head__title">
+  <article class="stacks-entry">
+    <h1 class="stacks-headword">Stacks</h1>
+
+    <div class="stacks-meta">
+      /staks/ &nbsp;&middot;&nbsp; [ME <span class="rom">stak</span>, fr. ON <span class="rom">stakkr</span> &ldquo;haystack&rdquo;]
+    </div>
+
+    <p class="stacks-definition">
+      stacks <span class="pos">n. pl.</span>&nbsp;
+      <span class="sense-num">2a</span>&nbsp;: an orderly pile or heap.
+      <span class="attribution">&mdash; Merriam-Webster</span>
+    </p>
+
+    <ol class="stacks-senses">
+      <li>
+        <em class="tag">library.</em> The rear or upper rooms of a research library where the bulk of a collection is shelved, traditionally closed to general browsing. <em class="usage">The book lived in the locked stacks of the Bodleian.</em>
+      </li>
+      <li>
+        <em class="tag">software.</em> The vertical stratum of technologies a system is built upon &mdash; language, framework, database, runtime &mdash; taken as a unit. <em class="usage">They rewrote the whole stack in Rust.</em>
+      </li>
+      <li>
+        <em class="tag">pharma</em> <span class="register">(informal).</span> A combination of pharmacologically active substances taken together for synergistic effect, esp. in bodybuilding or nootropic regimens. <em class="usage">a pre-workout stack of caffeine, beta-alanine, and citrulline.</em>
+      </li>
+      <li>
+        <em class="tag">cognitive.</em> A personal collection of mental models, frameworks, or heuristics held in active memory and deployed across problems. <em class="usage">a Munger-style latticework stack.</em>
+      </li>
+      <li>
+        <em class="tag">short</em> <span class="register">(diner).</span> A serving of 2 pancakes, as opposed to a full stack of 3. <em class="usage">Two short stacks and a coffee, please.</em>
+      </li>
+    </ol>
+
+    <footer class="stacks-cross-ref">
+      <span class="cf">See also:</span> <em>layer, heap, queue, midden.</em> &nbsp;&middot;&nbsp; First known use: 14th&nbsp;c.
+    </footer>
+  </article>
+  </div>
+</header>
+
+<div class="library">
+
+  <nav class="topic-index" id="topic-index" aria-label="Topics">
+    <p class="rail-label">Topics</p>
+    {%- for topic in shelfTopics %}
+      {%- set sidebarBucket = collections.items | where("dest", "shelf") | where("topic", topic) %}
+    <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}"><span>{{ topic }}</span><b>{{ sidebarBucket.length }}</b></a>
+    {%- endfor %}
+  </nav>
+
+  <section class="grid-scroll" aria-label="Items">
+    {%- for topic in shelfTopics %}
+      {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortForShelf %}
+      {%- set listItems = bucket | where("shelf_list", true) %}
+    <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-name="{{ topic }}" data-topic-count="{{ bucket.length }}" class="topic-section">
+      <header class="section-label">
+        <img class="section-label-mark" src="/img/rabbits/runner-lg.png" alt="" aria-hidden="true">
+        <h2 class="section-label-name">{{ topic }}</h2>
+        <span class="section-label-count" data-section-count>{{ bucket.length }}</span>
+      </header>
+      <ul class="grid">
+        {%- for item in bucket %}
+          {%- if not item.data.shelf_list %}{{ cell(item, topic) }}{%- endif %}
+        {%- endfor %}
+      </ul>
+      {%- if listItems.length %}
+      <ul class="shelf-list" aria-label="{{ topic | escape }} compact shelf items">
+        {%- for item in listItems %}{{ listRow(item) }}{%- endfor %}
+      </ul>
+      {%- endif %}
+    </section>
+    {%- endfor %}
+  </section>
+
+</div>
+
+<footer class="shelf-foot" aria-label="End of shelf">
+  <p>{{ collections.items | where("dest", "shelf") | length }} entries across {{ shelfTopics | length }} topics · <a href="/shelf.xml">RSS</a> · <a href="/">Back to about</a></p>
+</footer>
+
+<dialog id="shelf-modal" class="shelf-modal" aria-labelledby="shelf-modal-title">
+  <form method="dialog" class="shelf-modal__dismiss">
+    <button type="submit" class="shelf-modal__close" aria-label="Close">×</button>
+  </form>
+  <article class="shelf-modal__body">
+    <header class="shelf-modal__head">
+      <p class="shelf-modal__kicker" data-modal-topic></p>
+      <h2 class="shelf-modal__title" id="shelf-modal-title" data-modal-title></h2>
+      <p class="shelf-modal__meta">
+        <span data-modal-author></span><span class="shelf-modal__meta-sep" data-modal-meta-sep hidden>·</span><span data-modal-year></span>
+      </p>
+      <p class="shelf-modal__type-line" data-modal-type></p>
+      <p class="shelf-modal__dek" data-modal-dek hidden></p>
+    </header>
+    <div class="shelf-modal__layout">
+      <figure class="shelf-modal__cover" data-modal-cover-wrap hidden>
+        <img class="shelf-modal__cover-img" data-modal-cover alt="">
+      </figure>
+      <div class="shelf-modal__text">
+        <section class="shelf-modal__section shelf-modal__section--body" data-modal-body-wrap hidden>
+          <p class="shelf-modal__body-text" data-modal-body></p>
+          <p class="shelf-modal__body-source" data-modal-body-source hidden>
+            via <a data-modal-body-source-link target="_blank" rel="noopener"></a>
+          </p>
+        </section>
+        <section class="shelf-modal__section shelf-modal__section--quote" data-modal-quote-wrap hidden>
+          <p class="shelf-modal__section-label">Quote</p>
+          <blockquote class="shelf-modal__quote" data-modal-quote></blockquote>
+        </section>
+        <section class="shelf-modal__section shelf-modal__section--note" data-modal-note-wrap hidden>
+          <p class="shelf-modal__section-label">Note</p>
+          <p class="shelf-modal__note" data-modal-note></p>
+        </section>
+        <nav class="shelf-modal__links" data-modal-links-wrap hidden aria-label="Links">
+          <p class="shelf-modal__section-label">Links</p>
+          <ul data-modal-links></ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+</dialog>
+
+<script src="/assets/js/shelf-modal.js" defer></script>

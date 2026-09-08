@@ -1,0 +1,32 @@
+---
+permalink: /shelf.xml
+eleventyExcludeFromCollections: true
+---
+{%- set feedItems = collections.items | where("dest", "shelf") -%}
+{%- set feedItems = feedItems | sortBy("order") -%}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lee Wilkers – Shelves</title>
+    <link>{{ site.url }}/shelf/</link>
+    <atom:link href="{{ site.url }}/shelf.xml" rel="self" type="application/rss+xml"/>
+    <description>Things on my desk — books, chapters, essays, interviews, slides, films, concepts.</description>
+    <language>en-us</language>
+    <lastBuildDate>{{ "now" | rssDate }}</lastBuildDate>
+    {%- for item in feedItems | take(30) %}
+    <item>
+      <title>{{ (item.data.title or item.data.author) | escape }}{%- if item.data.title and item.data.author %} — {{ item.data.author | escape }}{%- endif %}</title>
+      <link>{{ item.data.url | escape }}</link>
+      <guid isPermaLink="false">{{ site.url }}/shelf/#{{ item.fileSlug }}</guid>
+      <pubDate>{{ item.data.added | rssDate }}</pubDate>
+      <category>{{ item.data.topic | escape }}</category>
+      <description><![CDATA[
+        {%- if item.data.dek %}<p><em>{{ item.data.dek }}</em></p>{% endif %}
+        {%- if item.data.blurb %}<p>{{ item.data.blurb }}</p>{% endif %}
+        {%- if item.data.quote %}<blockquote>{{ item.data.quote }}</blockquote>{% endif %}
+        {%- if item.data.note %}<p>{{ item.data.note }}</p>{% endif %}
+      ]]></description>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

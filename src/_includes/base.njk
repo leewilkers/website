@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{% if minimalHome %}dark{% else %}light{% endif %}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title or site.title }}</title>
+  {% set pageDescription = description or "Lee Wilkers — research, strategy and design." %}
+  <meta name="description" content="{{ pageDescription }}">
+  {% if robots %}<meta name="robots" content="{{ robots }}">{% endif %}
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title or site.title }}">
+  <meta name="twitter:description" content="{{ pageDescription }}">
+  <meta name="twitter:image" content="{{ site.url }}/img/og-image.png">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" type="application/rss+xml" title="Shelves – Lee Wilkers" href="/shelf.xml">
+  {# Source Serif 4 (prose), IBM Plex Sans (UI), and IBM Plex Mono are
+     self-hosted under /fonts/ via @font-face in css/style.css. No web-font
+     CDN and no preview machinery — one face per role, chosen by role. #}
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style-extended.css">{% if minimalHome %}
+  <link rel="stylesheet" href="/css/home-minimal.css">{% endif %}
+</head>
+<body>
+
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/" class="nav-name">
+    <span class="nav-name-line">Lee Wilkers</span>
+    <span class="nav-name-sub goodneighbor-mark">goodneighbor, llc</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="/"{% if page.url == "/" %} class="active"{% endif %}>home</a>
+      <a href="/consulting/"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a>
+      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
+      <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
+    </div>
+    <div class="nav-control-cluster" aria-label="Site controls">
+      <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="cat-switch-frame" data-cat-switch aria-hidden="true">
+  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-label="Cat-light video source on YouTube">
+    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
+      <source src="/img/cat_light.mp4" type="video/mp4">
+    </video>
+  </a>
+</div>
+
+
+	<main class="page {{ pageClass }}">
+
+  {{ content | safe }}
+
+</main>
+
+<div class="site-page-ornaments{% if pageClass %} {{ pageClass }}-ornaments{% endif %}">
+  <div class="site-dust-motif" aria-hidden="true">
+    <div class="dust-placeholder">
+      <div class="dust-placeholder-stage">
+        <p class="dust-placeholder-copy">pardon dust. workin on it</p>
+        <p class="dust-placeholder-kao">
+          <span class="kao kao--day">( ノ・_・)ノ</span>
+          <span class="kao kao--night">( ノ--_ --)ノ</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="site-art-note">
+    <a class="site-art-note-link" href="https://en.wikipedia.org/wiki/Andr%C3%A9_Jacob_Roubo" target="_blank" rel="noopener noreferrer" aria-label="Andre-Jacob Roubo and the source artwork" onclick="this.blur()">
+      <span class="site-art-note-mark" aria-hidden="true">?</span>
+      <span class="site-art-note-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, plate 278</span>
+    </a>
+  </div>
+  <aside class="site-art-reveal-caption" aria-hidden="true">
+    <p class="site-art-reveal-kicker">Original plate</p>
+    <p class="site-art-reveal-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, vol. III, plate 278</p>
+    <p class="site-art-reveal-meta">Manner of sawing wood veneer lengthwise. Paris, 1769-1775.</p>
+  </aside>
+  <div class="site-sawyer-original" id="site-sawyer-original" aria-hidden="true"></div>
+  <div class="site-sawyer-motif" aria-hidden="true"></div>
+</div>
+
+<footer class="site-colophon" aria-label="Colophon">
+  <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
+  <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
+  <span class="site-status" data-site-status aria-hidden="true"></span>
+</footer>
+
+<script>
+
+  // Keep the ordinary theme control available while experimental modes are
+  // unpublished.
+  window.toggleTheme = function() {
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    var button = document.querySelector('.dimmer');
+    if (button) button.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+  };
+
+  // Theme control state. The HTML opens dark by default; URL ?theme=light/dark
+  // may override for previews, but regular opens intentionally do not persist
+  // a prior light-mode test.
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.querySelector('.dimmer');
+      var theme = document.documentElement.getAttribute('data-theme');
+      if (btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    });
+  })();
+
+  // tab
+  (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
+
+  function initHomePage() {
+    var toggle = document.querySelector('[data-home-work-toggle]');
+    if (!toggle || toggle.dataset.homeWorkInit === '1') return;
+    var list = document.getElementById(toggle.getAttribute('aria-controls'));
+    if (!list) return;
+    toggle.dataset.homeWorkInit = '1';
+    toggle.addEventListener('click', function() {
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      list.hidden = expanded;
+    });
+  }
+  window.initHomePage = initHomePage;
+
+  // scroll-spy — rAF-throttled scroll listener. Highlight the topic that
+  // occupies at least half the usable viewport; fall back to the most visible
+  // section for short or between-section states.
+  function initShelfPage() {
+    if (window.__shelfScrollHandler) {
+      window.removeEventListener('scroll', window.__shelfScrollHandler);
+      window.__shelfScrollHandler = null;
+    }
+    if (window.__shelfHashHandler) {
+      window.removeEventListener('hashchange', window.__shelfHashHandler);
+      window.__shelfHashHandler = null;
+    }
+	    var sections = document.querySelectorAll('.topic-section');
+	    var links = document.querySelectorAll('.topic-index a');
+	    var index = document.getElementById('topic-index');
+	    if (!sections.length || !links.length) return;
+	    var hashSlugMigrations = {
+	      'organizations-institutions-and-strategy': 'organizations-and-work',
+	      'social-science': 'social-science-and-anthropology',
+	      'tech-web-culture': 'web-culture-and-internet',
+	      'web-stuff': 'web-culture-and-internet',
+	      'tech-history-and-critique': 'technology-and-critique',
+	      'technology-and-ways-of-living': 'technology-and-critique',
+	      'visual-culture-and-media': 'media',
+	      'visual-culture': 'media',
+	      'ethics-and-moral-philosophy': 'ethics-and-moral-imagination',
+	      'data-and-epidemiology': 'data-evidence-and-epidemiology',
+	      'methods-evidence-and-judgement': 'sensemaking-and-judgement',
+	      'methods-and-judgement': 'sensemaking-and-judgement',
+	      'classification-diagrams-and-representation': 'sensemaking-and-judgement',
+	      'architecture-and-built-environment': 'architecture-infrastructure-and-maintenance',
+	      'infrastructure-and-maintenance': 'architecture-infrastructure-and-maintenance',
+	      'outer-space': 'space'
+	    };
+
+	    var linkMap = {};
+	    links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
+
+	    function currentHashSlug() {
+	      return window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+	    }
+
+	    function normalizeTopicSlug(slug) {
+	      return hashSlugMigrations[slug] || slug;
+	    }
+
+	    function scrollToTopicSlug(rawSlug, replaceHash) {
+	      var slug = normalizeTopicSlug(rawSlug);
+	      var section = slug && document.getElementById(slug);
+	      if (!section) return false;
+	      if (rawSlug !== slug && replaceHash && history.replaceState) {
+	        history.replaceState(null, '', '#' + slug);
+	      }
+	      section.scrollIntoView({ behavior: 'auto', block: 'start' });
+	      requestAnimationFrame(updateActive);
+	      return true;
+	    }
+
+    function navOffset() {
+      var nav = document.querySelector('.site-nav');
+      var off = nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      // Publish to CSS so scroll-margin-top tracks actual nav height
+      // instead of a hard-coded value that may under-clear on tall navs.
+      document.documentElement.style.setProperty('--nav-offset', off + 'px');
+      return off;
+    }
+
+    function keepActiveLinkVisible(a) {
+      if (!index || !a) return;
+      var linkTop = a.offsetTop;
+      var linkBottom = linkTop + a.offsetHeight;
+      var viewTop = index.scrollTop;
+      var viewBottom = viewTop + index.clientHeight;
+      if (linkTop < viewTop) index.scrollTop = linkTop;
+      else if (linkBottom > viewBottom) index.scrollTop = linkBottom - index.clientHeight;
+    }
+
+    function updateActive() {
+      var viewTop = navOffset();
+      var viewBottom = window.innerHeight;
+      var viewHeight = Math.max(1, viewBottom - viewTop);
+      var active = null;
+      var bestShare = 0;
+      var fallback = null;
+      var fallbackVisible = 0;
+
+      sections.forEach(function(s) {
+        var r = s.getBoundingClientRect();
+        var visible = Math.max(0, Math.min(r.bottom, viewBottom) - Math.max(r.top, viewTop));
+        var share = visible / viewHeight;
+        if (share >= 0.5 && share > bestShare) {
+          bestShare = share;
+          active = s.dataset.topic;
+        }
+        if (visible > fallbackVisible) {
+          fallbackVisible = visible;
+          fallback = s.dataset.topic;
+        }
+      });
+
+      if (!active) active = fallback;
+
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-topic') === active;
+        a.classList.toggle('active', isActive);
+        if (isActive) {
+          a.setAttribute('aria-current', 'true');
+          keepActiveLinkVisible(a);
+        } else {
+          a.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    var ticking = false;
+    window.__shelfScrollHandler = function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', window.__shelfScrollHandler, { passive: true });
+
+	    window.__shelfHashHandler = function() {
+	      if (!scrollToTopicSlug(currentHashSlug(), true)) requestAnimationFrame(updateActive);
+	    };
+	    window.addEventListener('hashchange', window.__shelfHashHandler);
+
+	    if (!scrollToTopicSlug(currentHashSlug(), true)) {
+	      updateActive(); // initial paint
+	      requestAnimationFrame(updateActive);
+	    }
+
+    // Click-nav: respect the section's CSS scroll-margin so the sticky
+    // site nav and the topic highlight use the same reference point.
+    links.forEach(function(a) {
+      a.addEventListener('click', function(e) {
+	        var slug = normalizeTopicSlug(a.getAttribute('data-topic'));
+        var section = document.getElementById(slug);
+        if (section) {
+          e.preventDefault();
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history.pushState) history.pushState(null, '', '#' + slug);
+        }
+	        closeSidebar();
+	      });
+	    });
+	  }
+  window.initShelfPage = initShelfPage;
+
+  // Consulting page side TOC scroll-spy.
+  // Same pattern as initShelfPage: rAF-throttled scroll listener; the
+  // section that occupies >=50% of the usable viewport is "active";
+  // fall back to the most-visible section between thresholds.
+  function initConsultingPage() {
+    if (window.__consultingScrollHandler) {
+      window.removeEventListener('scroll', window.__consultingScrollHandler);
+      window.__consultingScrollHandler = null;
+    }
+    if (window.__consultingHashHandler) {
+      window.removeEventListener('hashchange', window.__consultingHashHandler);
+      window.__consultingHashHandler = null;
+    }
+
+    var sectionIds = ['working-with-knots', 'what-to-expect', 'getting-started', 'more-on-knots-section', 'common-knots-section'];
+    var sections = [];
+    sectionIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el });
+    });
+    var links = document.querySelectorAll('.consulting-toc-link');
+    if (!sections.length || !links.length) return;
+
+    function navOffset() {
+      var nav = document.querySelector('.site-nav');
+      var off = nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      // Publish to CSS so scroll-margin-top tracks actual nav height
+      // instead of a hard-coded value that may under-clear on tall navs.
+      document.documentElement.style.setProperty('--nav-offset', off + 'px');
+      return off;
+    }
+
+    function updateActive() {
+      var viewTop = navOffset();
+      var viewBottom = window.innerHeight;
+      var viewMid = viewTop + (viewBottom - viewTop) / 2;
+      var active = null;
+
+      // The active section is the latest one whose top has crossed below
+      // viewMid — i.e., the section the user has scrolled into. Iterate
+      // last-to-first to pick the most-recently-crossed (deepest) section.
+      // This handles short sections cleanly (no straddle-viewport-center
+      // requirement) and also handles the page-top edge case (no section
+      // has crossed viewMid yet → fall back to the first section).
+      for (var i = sections.length - 1; i >= 0; i--) {
+        var r = sections[i].el.getBoundingClientRect();
+        if (r.top <= viewMid) {
+          active = sections[i].id;
+          break;
+        }
+      }
+      if (!active) active = sections[0].id;
+
+
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-toc-target') === active;
+        if (isActive) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+
+      sections.forEach(function(s) {
+        s.el.classList.toggle('is-active', s.id === active);
+      });
+
+      // Doc-level hook so cross-tree styling (e.g., the page-ornaments
+      // dust placeholder) can react to which TOC section is in view.
+      document.documentElement.classList.toggle('is-coming-soon-active', active === 'common-knots-section');
+    }
+
+    var ticking = false;
+    window.__consultingScrollHandler = function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', window.__consultingScrollHandler, { passive: true });
+
+    // Click-nav: smooth scroll, push hash to URL. Force-set active
+    // immediately so the TOC reflects user intent during the smooth-
+    // scroll animation (before the scroll handler catches up). Also
+    // re-call updateActive after the scroll likely finishes so the
+    // tracker resyncs with actual viewport position.
+    function forceActive(id) {
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-toc-target') === id;
+        if (isActive) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+      sections.forEach(function(s) {
+        s.el.classList.toggle('is-active', s.id === id);
+      });
+      document.documentElement.classList.toggle('is-coming-soon-active', id === 'common-knots-section');
+    }
+    links.forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var id = a.getAttribute('data-toc-target');
+        var section = document.getElementById(id);
+        if (section) {
+          e.preventDefault();
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history.pushState) history.pushState(null, '', '#' + id);
+          forceActive(id);
+          // Smooth-scroll typically completes <800ms; resync after.
+          setTimeout(updateActive, 820);
+        }
+      });
+    });
+
+    window.__consultingHashHandler = function() {
+      var hash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+      var section = hash && document.getElementById(hash);
+      if (section) {
+        section.scrollIntoView({ behavior: 'auto', block: 'start' });
+        requestAnimationFrame(updateActive);
+      }
+    };
+    window.addEventListener('hashchange', window.__consultingHashHandler);
+
+    // Initial paint — handle hash on load, then update.
+    var initialHash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+    if (initialHash && document.getElementById(initialHash)) {
+      document.getElementById(initialHash).scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+    updateActive();
+    requestAnimationFrame(updateActive);
+  }
+  window.initConsultingPage = initConsultingPage;
+
+  function initCurrentPage() {
+    initHomePage();
+    initShelfPage();
+    initConsultingPage();
+    syncSidebarMode();
+  }
+  window.initCurrentPage = initCurrentPage;
+
+  // Same-origin shell navigation keeps active WebAudio running. Without this,
+  // a normal document navigation destroys the AudioContext and cuts the loop.
+  (function() {
+    if (!window.fetch || !window.DOMParser || !history.pushState) return;
+
+    var shellPaths = {
+      '/': true,
+      '/consulting/': true,
+      '/shelf/': true,
+      '/stream/': true
+    };
+    var shellOrder = {
+      '/': 0,
+      '/consulting/': 1,
+      '/shelf/': 2,
+      '/stream/': 3
+    };
+    var navigating = false;
+
+    function normalizePath(pathname) {
+      if (pathname === '/index.html') return '/';
+      return pathname.endsWith('/') ? pathname : pathname + '/';
+    }
+
+    var currentShellPath = normalizePath(location.pathname);
+
+    function isShellPath(url) {
+      return !!shellPaths[normalizePath(url.pathname)];
+    }
+
+    function shellDirectionFor(url) {
+      var nextPath = normalizePath(url.pathname);
+      var currentIndex = shellOrder[currentShellPath];
+      var nextIndex = shellOrder[nextPath];
+      if (typeof currentIndex !== 'number' || typeof nextIndex !== 'number') return 'forward';
+      if (nextIndex === currentIndex) return 'forward';
+      return nextIndex > currentIndex ? 'forward' : 'back';
+    }
+
+    function sameDocumentHash(url) {
+      return normalizePath(url.pathname) === normalizePath(location.pathname)
+        && url.search === location.search
+        && url.hash;
+    }
+
+    function shouldHandleLink(a, event) {
+      if (!a || navigating) return false;
+      if (event.defaultPrevented || event.button !== 0) return false;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+      if (a.target && a.target !== '_self') return false;
+      if (a.hasAttribute('download')) return false;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (e) { return false; }
+      if (url.origin !== location.origin) return false;
+      if (!isShellPath(url)) return false;
+      if (sameDocumentHash(url)) return false;
+      return true;
+    }
+
+    function updateNav(pathname) {
+      var current = normalizePath(pathname);
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        var url;
+        try { url = new URL(a.href, location.href); } catch (e) { return; }
+        var active = normalizePath(url.pathname) === current;
+        a.classList.toggle('active', active);
+        if (active) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
+    }
+
+    function updateHead(doc) {
+      document.title = doc.title || document.title;
+      [
+        ['link[rel="canonical"]', 'href'],
+        ['meta[property="og:title"]', 'content'],
+        ['meta[property="og:description"]', 'content'],
+        ['meta[property="og:url"]', 'content'],
+        ['meta[name="twitter:title"]', 'content'],
+        ['meta[name="twitter:description"]', 'content']
+      ].forEach(function(pair) {
+        var current = document.querySelector(pair[0]);
+        var next = doc.querySelector(pair[0]);
+        if (current && next) current.setAttribute(pair[1], next.getAttribute(pair[1]) || '');
+      });
+    }
+
+    function updateOrnaments(doc) {
+      var currentOrnaments = document.querySelector('.site-page-ornaments');
+      var nextOrnaments = doc.querySelector('.site-page-ornaments');
+      if (!currentOrnaments || !nextOrnaments) return;
+      currentOrnaments.className = nextOrnaments.className;
+    }
+
+    function scrollAfterSwap(url) {
+      if (url.hash) {
+        var id = decodeURIComponent(url.hash.slice(1));
+        var target = id && document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'auto', block: 'start' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    function applyPageSwap(doc, url, push) {
+      var currentMain = document.querySelector('main.page');
+      var nextMain = doc.querySelector('main.page');
+      if (!currentMain || !nextMain) throw new Error('missing main.page');
+      updateHead(doc);
+      updateOrnaments(doc);
+      currentMain.className = nextMain.className;
+      currentMain.innerHTML = nextMain.innerHTML;
+      document.body.classList.remove('menu-open');
+      if (push) history.pushState({ siteShell: true }, '', url.href);
+      updateNav(url.pathname);
+      initCurrentPage();
+      scrollAfterSwap(url);
+      currentShellPath = normalizePath(url.pathname);
+    }
+
+    function clearShellTransition() {
+      document.documentElement.classList.remove('site-shell-transitioning');
+      document.documentElement.removeAttribute('data-shell-direction');
+    }
+
+    function swapPage(doc, url, push, direction) {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!document.startViewTransition || reduced) {
+        applyPageSwap(doc, url, push);
+        return Promise.resolve();
+      }
+
+      document.documentElement.dataset.shellDirection = direction || 'forward';
+      document.documentElement.classList.add('site-shell-transitioning');
+      var transition = document.startViewTransition(function() {
+        applyPageSwap(doc, url, push);
+      });
+      return transition.finished.catch(function() {}).finally(clearShellTransition);
+    }
+
+    function visit(rawUrl, push, resetWaveRabbitModes) {
+      var url = rawUrl instanceof URL ? rawUrl : new URL(rawUrl, location.href);
+      var direction = shellDirectionFor(url);
+      navigating = true;
+      return fetch(url.href, {
+        credentials: 'same-origin',
+        headers: { 'X-Requested-With': 'site-shell' }
+      }).then(function(response) {
+        if (!response.ok) throw new Error('fetch failed');
+        return response.text();
+      }).then(function(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        if (resetWaveRabbitModes && typeof window.resetWaveRabbitModesForNavigation === 'function') {
+          window.resetWaveRabbitModesForNavigation();
+        }
+        return swapPage(doc, url, push, direction);
+      }).catch(function() {
+        clearShellTransition();
+        location.href = url.href;
+      }).finally(function() {
+        navigating = false;
+      });
+    }
+
+    document.addEventListener('click', function(event) {
+      var a = event.target.closest && event.target.closest('a[href]');
+      if (!shouldHandleLink(a, event)) return;
+      event.preventDefault();
+      visit(new URL(a.href, location.href), true, !!(a.closest && a.closest('.nav-links')));
+    });
+
+    window.addEventListener('popstate', function() {
+      var url = new URL(location.href);
+      if (!isShellPath(url)) {
+        location.reload();
+        return;
+      }
+      visit(url, false);
+    });
+  })();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCurrentPage);
+  } else {
+    initCurrentPage();
+  }
+
+
+	  // Mobile hamburger overlay: open/close with focus-trap + Escape + body scroll-lock
+	  function openSidebar() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    idx.classList.add('open');
+    idx.removeAttribute('inert');
+    document.body.classList.add('menu-open');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+    var firstLink = idx.querySelector('a');
+    if (firstLink) firstLink.focus();
+  }
+  function closeSidebar() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    var wasOpen = idx.classList.contains('open');
+    idx.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      if (wasOpen) btn.focus();
+    }
+    // Keep off-canvas topic links out of the tab order whenever the overlay is hidden.
+    if (window.matchMedia('(max-width: 1200px)').matches) {
+      idx.setAttribute('inert', '');
+    }
+  }
+  window.toggleSidebar = function() {
+    var idx = document.getElementById('topic-index');
+    if (!idx) return;
+    if (idx.classList.contains('open')) closeSidebar();
+    else openSidebar();
+  };
+  // Escape closes overlay when open
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    var idx = document.getElementById('topic-index');
+    if (idx && idx.classList.contains('open')) closeSidebar();
+  });
+  function syncSidebarMode() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    if (window.matchMedia('(max-width: 1200px)').matches) {
+      if (!idx.classList.contains('open')) idx.setAttribute('inert', '');
+    } else {
+      idx.removeAttribute('inert');
+      idx.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', syncSidebarMode);
+  window.addEventListener('resize', syncSidebarMode);
+</script>
+
+<script>
+  (function() {
+    var el = document.querySelector('[data-site-status]');
+    if (!el) return;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var now = new Date();
+    var dateStr = now.getDate() + ' ' + months[now.getMonth()];
+    var paint = function(weatherStr) {
+      el.textContent = dateStr + (weatherStr ? ' · ' + weatherStr : '') + ' · Atlanta';
+    };
+    paint('');
+    if (typeof fetch !== 'function') return;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=33.749&longitude=-84.388&current=temperature_2m&temperature_unit=fahrenheit';
+    fetch(url)
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data || !data.current || typeof data.current.temperature_2m !== 'number') return;
+        paint(Math.round(data.current.temperature_2m) + '°F');
+      })
+      .catch(function() {});
+  })();
+</script>
+
+<script>
+  // Rail-hover: place-note content snaps into the right rail (anchored top).
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var rail = document.getElementById('rail-hover');
+      if (!rail) return;
+
+      function activate(note) {
+        rail.textContent = note;
+        rail.classList.add('is-active');
+      }
+
+      function activateNode(sourceEl) {
+        var clone = sourceEl.cloneNode(true);
+        clone.removeAttribute('hidden');
+        rail.replaceChildren.apply(rail, Array.prototype.slice.call(clone.childNodes));
+        rail.classList.add('is-active');
+      }
+
+      function deactivate() {
+        rail.classList.remove('is-active');
+      }
+
+      var notes = document.querySelectorAll('.home-place-note');
+      notes.forEach(function(el) {
+        var bodyEl = el.querySelector('.home-cite-note-body');
+        var note = el.getAttribute('data-note') || '';
+        function enter() { bodyEl ? activateNode(bodyEl) : activate(note); }
+        el.addEventListener('mouseenter', enter);
+        el.addEventListener('focus', enter);
+        el.addEventListener('mouseleave', deactivate);
+        el.addEventListener('blur', deactivate);
+      });
+    });
+  })();
+</script>
+
+<script src="/assets/js/theme-switch.js"></script>
+</body>
+</html>
