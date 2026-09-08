@@ -42,6 +42,6 @@ This validates the source, renders the site, runs the checks, and exports only a
 
 The approved pages are Home, Consulting, Selected work, Stacks, the Stream placeholder, and 404. Only the first four appear in the sitemap. Stream remains a visible noindex placeholder. Adding a page requires an explicit change to the source validator and public exporter.
 
-The prepared GitHub Actions workflow uploads `_public/`. Hosting setup, the private repository, and the custom domain must be configured separately before publication. This local repository has no remote. Changes to the live site require owner approval.
+The prepared GitHub Actions workflow uploads `_public/`. Hosting setup, the private repository, and the custom domain must be configured separately before publication. Source is stored in the private [GitHub repository](https://github.com/leewilkers/website). The current `codex/clean-site-baseline` branch does not trigger automatic deployment. Changes to the live site require owner approval.
 
 Run `npm test` for the publication-boundary checks. `npm start` serves the generated artifact, including real 404 responses and media byte-range requests.
