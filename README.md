@@ -42,6 +42,14 @@ This validates the source, renders the site, runs the checks, and exports only a
 
 The approved pages are Home, Consulting, Selected work, Stacks, the Stream placeholder, and 404. Only the first four appear in the sitemap. Stream remains a visible noindex placeholder. Adding a page requires an explicit change to the source validator and public exporter.
 
-The prepared GitHub Actions workflow uploads `_public/`. Hosting setup, the private repository, and the custom domain must be configured separately before publication. Source is stored in the private [GitHub repository](https://github.com/leewilkers/website). The current `codex/clean-site-baseline` branch does not trigger automatic deployment. Changes to the live site require owner approval.
+Source is stored in the public [GitHub repository](https://github.com/leewilkers/website). Every tracked file and commit is visible, so keep private notes and drafts outside this repository. GitHub Pages uses GitHub Actions and the custom domain `leewilkers.com`; the workflow uploads only `_public/`.
+
+To publish an approved change:
+
+1. Run `npm run build:public`, review the local preview, then commit and push the source changes to `codex/clean-site-baseline`.
+2. Open [Build and Deploy](https://github.com/leewilkers/website/actions/workflows/build.yml), choose **Run workflow**, and select `codex/clean-site-baseline`.
+3. Wait for both the build and deploy jobs to succeed, then check [leewilkers.com](https://leewilkers.com/) and the changed pages or media.
+
+The current `codex/clean-site-baseline` branch does not trigger automatic deployment. Changes to the live site require owner approval. Namecheap DNS already points to GitHub Pages; ordinary website edits require no DNS changes. The old repository is retained privately and is not the publishing source.
 
 Run `npm test` for the publication-boundary checks. `npm start` serves the generated artifact, including real 404 responses and media byte-range requests.
