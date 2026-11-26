@@ -51,14 +51,12 @@ body:has(.page-minimal-home) {
   --minimal-edge: clamp(1.35rem, 10vw, 10rem);
   --minimal-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --minimal-link: #1d67c1;
-  --goodneighbor: #2d6a3f;
   font-family: var(--minimal-sans);
   font-feature-settings: normal;
 }
 
 [data-theme="dark"] body:has(.page-minimal-home) {
   --minimal-link: #82b7f4;
-  --goodneighbor: #8fbd78;
 }
 
 body:has(.page-minimal-home) .site-nav {
@@ -74,7 +72,6 @@ body:has(.page-minimal-home) .site-nav {
 }
 
 body:has(.page-minimal-home) .nav-name,
-body:has(.page-minimal-home) .nav-name-sub,
 body:has(.page-minimal-home) .nav-links a,
 body:has(.page-minimal-home) .nav-control-cluster,
 body:has(.page-minimal-home) .dimmer {
@@ -87,11 +84,6 @@ body:has(.page-minimal-home) .nav-name {
   font-weight: 650;
 }
 
-body:has(.page-minimal-home) .nav-name-sub {
-  color: var(--goodneighbor);
-  font-size: 0.68rem;
-  font-weight: 550;
-}
 
 body:has(.page-minimal-home) .nav-links {
   gap: 1rem;
@@ -167,10 +159,6 @@ body:has(.page-minimal-home) .page-minimal-home {
   margin-top: 0.95rem;
 }
 
-.minimal-clean-preview .goodneighbor-mark {
-  color: var(--goodneighbor);
-  font-weight: 650;
-}
 
 .minimal-clean-more {
   margin-top: 1.65rem !important;

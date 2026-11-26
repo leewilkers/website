@@ -745,7 +745,6 @@ p {
   --rule-light: #CECDC3;  /* flexoki-200 */
   --accent: #24837B;      /* flexoki-cyan-600 — Kepano action; WAYFINDING ONLY */
   --accent-text: #24837B;
-  --goodneighbor-ink: #3F7758;
   --link-underline: color-mix(in srgb, var(--ink) 45%, transparent); /* prose links: ink, underlined (Tufte) */
   --section-label: #6F6E69; /* flexoki-base-600 */
   --label-quiet: color-mix(in srgb, var(--section-label) 68%, var(--ink-faint));
@@ -768,7 +767,6 @@ p {
   --rule-light: #343331;  /* flexoki-850 */
   --accent: #3AA99F;      /* flexoki-cyan-400; WAYFINDING ONLY */
   --accent-text: #3AA99F;
-  --goodneighbor-ink: #85B393;
   --link-underline: color-mix(in srgb, var(--ink) 45%, transparent);
   --section-label: #9F9D96; /* flexoki-base-400 */
   --label-quiet: color-mix(in srgb, var(--section-label) 66%, var(--ink-faint));
@@ -794,7 +792,6 @@ p {
     --rule-light: #343331;
     --accent: #3AA99F;
     --accent-text: #3AA99F;
-    --goodneighbor-ink: #85B393;
     --link-underline: color-mix(in srgb, var(--ink) 45%, transparent);
     --section-label: #9F9D96;
     --label-quiet: color-mix(in srgb, var(--section-label) 66%, var(--ink-faint));
@@ -852,18 +849,7 @@ body {
   text-transform: none;
   font-variant: normal;
 }
-.nav-name-sub {
-  font-family: var(--site-nav-sans);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-transform: none;
-  color: var(--goodneighbor-ink);
-}
 
-.goodneighbor-mark {
-  color: var(--goodneighbor-ink);
-}
 
 .nav-links a {
   display: inline-flex;
@@ -5343,11 +5329,7 @@ button.shelf-list-title:hover {
     max-width: 100%;
   }
 
-  .nav-name-sub {
-    font-size: 0.64rem;
-    line-height: 1.2;
-  }
-
+  
   .nav-links .dead {
     display: none;
   }
